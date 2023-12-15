@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import config from "../config";
 
 const sendMail = async (to: String, content) => {
   const transporter = nodemailer.createTransport({
@@ -6,15 +7,15 @@ const sendMail = async (to: String, content) => {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "youth229031@gmail.com",
-      pass: "mmpmwhqooqhuxryx",
+      user: config.sendmailAddress,
+      pass: config.sendmailPassword,
     },
   });
 
   // Use the transporter to send emails
   try {
     const res = await transporter.sendMail({
-      from: "youth229031@gmail.com",
+      from: config.frommailAddress,
       to,
       subject: "Email Verification",
       html: content,

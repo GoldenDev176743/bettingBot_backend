@@ -1,13 +1,19 @@
 import { Request, ResponseToolkit } from "@hapi/hapi";
 import bcrypt from "bcrypt";
 import Jwt from "jsonwebtoken";
+import fs from "fs";
 
 // import projects
 import config from "../config";
 import User from "../models/user";
 import { createUserSchema, userLoginSchema } from "../validation/user";
-import { userRegisterSwagger, userLoginSwagger } from "../swagger/user";
+import {
+  userRegisterSwagger,
+  userLoginSwagger,
+  verifyEmailSwagger,
+} from "../swagger/user";
 import sendMail from "../utils/sendmail";
+import GenerateOTP from "../utils/otp";
 
 const options = { abortEarly: false, stripUnknown: true };
 
@@ -76,6 +82,34 @@ export const userRoute = [
       } catch (error) {
         return response.response(error).code(500);
       }
+    },
+  },
+  {
+    method: "GET",
+    path: "/verify-email/{token}",
+    options: {
+      description: "Verify Email",
+      plugins: verifyEmailSwagger,
+      tags: ["api", "user"],
+    },
+    handler: async (request: Request, response: ResponseToolkit) => {
+      const success = fs.readFileSync("./utils/emailVeriffSucess.txt");
+      const failed = fs.readFileSync("./utils/emailVeriffFail.txt");
+      const decoded: any = Jwt.decode(request.params.token);
+      if (decoded === null) {
+        return failed.toLocaleString();
+      }
+      const currentTime = Date.now() / 1000;
+      if (decoded.exp < currentTime) {
+        return failed.toLocaleString();
+      }
+      const user = await User.findById(decoded.userId);
+      if (user) {
+        user.emailVerifyStatus = "verified";
+        await user.save();
+        return success.toLocaleString();
+      }
+      return failed.toLocaleString();
     },
   },
   {
