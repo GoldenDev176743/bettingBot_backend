@@ -11,7 +11,7 @@
         flex-direction: column;
         justify-content: center;
         background-color: #2C3E50;
-        color: white;
+        color: red;
         font-family: Arial, sans-serif;
       }
       /* Set line height for each element */
@@ -45,7 +45,6 @@
   </head>
   <body>
     <h1>Email Verification Failed</h1>
-    <h1>Go to sign in page and retry</h1>
-    <a href="http://194.87.199.29:3000/signin" class="button">Sign In</a>
+    <h2>Please Retry.</h2>
   </body>
 </html>
