@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Centered Content</title>
+    <style>
+      /* Center the content horizontally and vertically */
+      body {
+        text-align: center;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #2C3E50;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+      /* Set line height for each element */
+      h1, a {
+        line-height: 1;
+      }
+      /* Center the anchor element horizontally */
+      a {
+        margin: 0 auto;
+      }
+      /* Style the h1 elements */
+      h1 {
+        font-size: 48px;
+        margin-bottom: 24px;
+      }
+      /* Style the Sign In button */
+      a.button {
+        background-color: #3498DB;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 10px;
+        font-size: 24px;
+        width: 200px;
+        transition: background-color 0.2s ease-in-out;
+      }
+      a.button:hover {
+        background-color: #2980B9;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Email Verified Successfully</h1>
+    <h1>Go to sign in page</h1>
+    <a href="http://194.87.199.29:3000/signin" class="button">Sign In</a>
+  </body>
+</html>

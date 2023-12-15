@@ -1,44 +1,68 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-    firstname: {
-        type: String,
-        required: true,
-    },
-    lastname: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-    },
-    company: {
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  emailVerifyStatus: {
+    type: String,
+    required: true,
+  },
+  license: {
+    tennis: {
+      key: {
         type: String,
         required: false,
+      },
+      expiration: {
+        type: Date,
+        required: false,
+      },
     },
-    password: {
+    football: {
+      key: {
         type: String,
-        required: true,
+        required: false,
+      },
+      expiration: {
+        type: Date,
+        required: false,
+      },
     },
-    license: [{
-        tennis: {
-            type: String,
-            required: false,
-        },
-        football: {
-            type: String,
-            required: false,
-        },
-        volleyball: {
-            type: String,
-            required: false,
-        },
-        basketball: {
-            type: String,
-            required: false,
-        },
-    }]
+    volleyball: {
+      key: {
+        type: String,
+        required: false,
+      },
+      expiration: {
+        type: Date,
+        required: false,
+      },
+    },
+    basketball: {
+      key: {
+        type: String,
+        required: false,
+      },
+      expiration: {
+        type: Date,
+        required: false,
+      },
+    },
+  },
 });
 
 const User = mongoose.model("user", UserSchema);
