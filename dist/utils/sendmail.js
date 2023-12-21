@@ -13,20 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const nodemailer_1 = __importDefault(require("nodemailer"));
+const config_1 = __importDefault(require("../config"));
 const sendMail = (to, content) => __awaiter(void 0, void 0, void 0, function* () {
     const transporter = nodemailer_1.default.createTransport({
         host: "smtp.gmail.com",
         port: 587,
         secure: false,
         auth: {
-            user: "youth229031@gmail.com",
-            pass: "mmpmwhqooqhuxryx",
+            user: config_1.default.sendmailAddress,
+            pass: config_1.default.sendmailPassword,
         },
     });
     // Use the transporter to send emails
     try {
         const res = yield transporter.sendMail({
-            from: "youth229031@gmail.com",
+            from: config_1.default.frommailAddress,
             to,
             subject: "Email Verification",
             html: content,

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRoute = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const fs_1 = __importDefault(require("fs"));
 // import projects
 const config_1 = __importDefault(require("../config"));
 const user_1 = __importDefault(require("../models/user"));
@@ -56,8 +57,8 @@ exports.userRoute = [
                 }
                 // get account data from request data
                 const UserData = {
-                    firstname: request.payload["firstname"],
-                    lastname: request.payload["lastname"],
+                    firstName: request.payload["firstName"],
+                    lastName: request.payload["lastName"],
                     email: request.payload["email"],
                     password: request.payload["password"],
                     emailVerifyStatus: "unverified",
@@ -81,6 +82,34 @@ exports.userRoute = [
             catch (error) {
                 return response.response(error).code(500);
             }
+        }),
+    },
+    {
+        method: "GET",
+        path: "/verify-email/{token}",
+        options: {
+            description: "Verify Email",
+            plugins: user_3.verifyEmailSwagger,
+            tags: ["api", "user"],
+        },
+        handler: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+            const success = fs_1.default.readFileSync("./utils/emailVeriffSucess.txt");
+            const failed = fs_1.default.readFileSync("./utils/emailVeriffFail.txt");
+            const decoded = jsonwebtoken_1.default.decode(request.params.token);
+            if (decoded === null) {
+                return failed.toLocaleString();
+            }
+            const currentTime = Date.now() / 1000;
+            if (decoded.exp < currentTime) {
+                return failed.toLocaleString();
+            }
+            const user = yield user_1.default.findById(decoded.userId);
+            if (user) {
+                user.emailVerifyStatus = "verified";
+                yield user.save();
+                return success.toLocaleString();
+            }
+            return failed.toLocaleString();
         }),
     },
     {
@@ -119,8 +148,8 @@ exports.userRoute = [
                             });
                             const info = {
                                 email: user.email,
-                                firstname: user.firstname,
-                                lastname: user.lastname,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
                                 license: user.license,
                                 emailVerifyStatus: user.emailVerifyStatus,
                             };

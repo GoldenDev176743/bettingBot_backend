@@ -52,8 +52,8 @@ export const userRoute = [
 
         // get account data from request data
         const UserData = {
-          firstname: request.payload["firstname"],
-          lastname: request.payload["lastname"],
+          firstName: request.payload["firstName"],
+          lastName: request.payload["lastName"],
           email: request.payload["email"],
           password: request.payload["password"],
           emailVerifyStatus: "unverified",
@@ -155,8 +155,8 @@ export const userRoute = [
               );
               const info = {
                 email: user.email,
-                firstname: user.firstname,
-                lastname: user.lastname,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 license: user.license,
                 emailVerifyStatus: user.emailVerifyStatus,
               };

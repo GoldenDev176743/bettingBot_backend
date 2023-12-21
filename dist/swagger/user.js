@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userLoginSwagger = exports.userRegisterSwagger = void 0;
+exports.verifyEmailSwagger = exports.userLoginSwagger = exports.userRegisterSwagger = void 0;
 exports.userRegisterSwagger = {
     "hapi-swagger": {
         responses: {
@@ -27,6 +27,18 @@ exports.userLoginSwagger = {
             },
             404: {
                 description: "User not found.",
+            },
+        },
+    },
+};
+exports.verifyEmailSwagger = {
+    "hapi-swagger": {
+        responses: {
+            201: {
+                description: "Email is verified",
+            },
+            400: {
+                description: "Email is not verified",
             },
         },
     },

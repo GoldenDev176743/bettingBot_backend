@@ -1,12 +1,12 @@
 import Joi from "joi";
 
 export const createUserSchema = Joi.object({
-    firstname: Joi.string().required().messages({
-        "any.required": "Please input firstname."
+    firstName: Joi.string().required().messages({
+        "any.required": "Please input firstName."
     }),
 
-    lastname: Joi.string().required().messages({
-        "any.required": "Please input lastname."
+    lastName: Joi.string().required().messages({
+        "any.required": "Please input lastName."
     }),
 
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required().messages({

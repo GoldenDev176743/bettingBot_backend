@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userLoginSchema = exports.createUserSchema = void 0;
 const joi_1 = __importDefault(require("joi"));
 exports.createUserSchema = joi_1.default.object({
-    firstname: joi_1.default.string().required().messages({
-        "any.required": "Please input firstname."
+    firstName: joi_1.default.string().required().messages({
+        "any.required": "Please input firstName."
     }),
-    lastname: joi_1.default.string().required().messages({
-        "any.required": "Please input lastname."
+    lastName: joi_1.default.string().required().messages({
+        "any.required": "Please input lastName."
     }),
     email: joi_1.default.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required().messages({
         "any.required": "Please input email.",
